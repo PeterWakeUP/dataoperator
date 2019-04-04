@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+
+名字：<input id="name" type="text"><br>
+成绩：<input id="score" type="text"><br>
+<input type="button" value="存入mysql" onclick="saveMysql()">
+<input type="button" value="存入redis" onclick="saveRedis()">
+
+</body>
+</html>
+
+<script type="text/javascript">
+    function saveRedis() {
+        $.ajax({
+            type:"post",
+            url:"/data/save",
+            data:{
+                "type": "redis",
+                "name":$("#name").val(),
+                "score":$("#score").val()
+            },
+            success:function (r) {
+                alert(r.msg);
+            }
+        })
+    }
+
+    function saveMysql() {
+        $.ajax({
+            type:"post",
+            url:"/data/save",
+            data:{
+                "type": "mysql",
+                "name":$("#name").val(),
+                "score":$("#score").val()
+            },
+            success:function (r) {
+                alert(r.msg);
+            }
+        })
+    }
+</script>
