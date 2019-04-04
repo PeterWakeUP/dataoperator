@@ -1,6 +1,7 @@
-package cn.tdw.config;
+package com.example.dataoperator.reposity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.stereotype.Service;
@@ -253,10 +254,12 @@ public class JedisService {
     private JedisService(){
 
     }
-    //操作redis客户端
-    private static Jedis jedis;
+
+
     @Autowired
+    @Qualifier("jedisConnectionFactory")
     private JedisConnectionFactory jedisConnectionFactory;
+
 
     /**
      * 按降序获取集合元素，包含分值

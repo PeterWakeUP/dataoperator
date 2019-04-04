@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dataoperator.dao.StudentDao">
 
-    <insert id="save" parameterMap="com.example.dataoperator.dto.StudentVo">
+    <insert id="save" parameterType="com.example.dataoperator.dto.StudentVo">
         INSERT INTO `zz_my`.`student`(
         `name`,
         `score`
