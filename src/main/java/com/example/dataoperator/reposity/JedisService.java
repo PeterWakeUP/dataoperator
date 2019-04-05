@@ -6,6 +6,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPubSub;
 import redis.clients.jedis.Tuple;
 
 import java.util.Collections;
@@ -257,7 +258,7 @@ public class JedisService {
 
 
     @Autowired
-    @Qualifier("jedisConnectionFactory")
+    //@Qualifier("jedisConnectionFactory")
     private JedisConnectionFactory jedisConnectionFactory;
 
 
@@ -485,6 +486,32 @@ public class JedisService {
         Jedis jedis = (Jedis) conn.getNativeConnection();
 
         jedis.expire(key, seconds);
+        conn.close();
+    }
+
+
+    /**
+     * 发布信息
+     * @param channel
+     * @param msg
+     */
+    public void publish(String channel, String msg){
+        RedisConnection conn = jedisConnectionFactory.getConnection();
+        Jedis jedis = (Jedis) conn.getNativeConnection();
+
+        jedis.publish(channel, msg);
+        conn.close();
+    }
+
+
+    /**
+     * 订阅信息
+     */
+    public void subscribe(JedisPubSub jedisPubSub, String channel){
+        RedisConnection conn = jedisConnectionFactory.getConnection();
+        Jedis jedis = (Jedis) conn.getNativeConnection();
+
+        jedis.subscribe(jedisPubSub, channel);
         conn.close();
     }
 }
