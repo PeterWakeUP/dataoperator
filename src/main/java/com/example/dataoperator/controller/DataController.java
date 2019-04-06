@@ -14,9 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("data")
 public class DataController {
+
+    // 分布式锁20秒过期
+    private final int DISTRIBUTED_LOCK_EXPIRE_TIME = 20 * 1000;
+
+    //休眠毫秒数
+    private final long SLEEP_TIME = 200;
+
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -74,6 +83,46 @@ public class DataController {
         public void run() {
             jedisService.publish("msg", "hello student");
         }
+    }
+
+
+    public void getLock(){
+        String requestId = UUID.randomUUID().toString();
+
+        //分布式锁,锁的名字
+        String distributeLockKeyOfBatchAllocAgent = "distrlock";
+
+        try{
+            // 3. 获取分布式锁
+            while (true) {
+                boolean isLock = jedisService.tryGetDistributedLock(distributeLockKeyOfBatchAllocAgent, requestId, DISTRIBUTED_LOCK_EXPIRE_TIME);
+
+                if (!isLock) {
+                    logger.info("获取锁失败, 休眠{}ms. key:{}", SLEEP_TIME, distributeLockKeyOfBatchAllocAgent);
+
+                    Thread.sleep(SLEEP_TIME);
+                    continue;
+                }
+                break;
+            }
+
+            //TODO 拿到锁，继续进行下一步操作
+
+
+        }catch (Exception e){
+
+        }finally {
+
+            try {
+                //释放分布式锁
+                jedisService.releaseDistributedLock(distributeLockKeyOfBatchAllocAgent, requestId);
+            }catch (Exception e){
+
+            }
+
+        }
+
+
     }
 
 }
