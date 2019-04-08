@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.dataoperator.dto.R;
 import com.example.dataoperator.dto.Student;
 import com.example.dataoperator.dto.StudentVo;
+import com.example.dataoperator.rabbitmq.producer.MsgProducer;
 import com.example.dataoperator.reposity.JedisService;
 import com.example.dataoperator.reposity.RedisReposity;
 import com.example.dataoperator.service.StudentService;
@@ -38,15 +39,22 @@ public class DataController {
     @Autowired
     JedisService jedisService;
 
+    @Autowired
+    MsgProducer msgProducer;
+
 
     @RequestMapping("save")
     public R save(StudentVo vo){
         if(vo.getType().equals("mysql")){
             studentService.save(vo);
-        }else{
+        }else if(vo.getType().equals("redis")){
             //redisReposity.save(vo);
             //saveByJedis(vo);
             pubSub();
+        }else if(vo.getType().equals("rabbitmq one")){
+            msgProducer.sendMsg("hello");
+        }else if(vo.getType().equals("rabbitmq all")){
+            msgProducer.sendAll("hello all");
         }
         return R.ok();
     }

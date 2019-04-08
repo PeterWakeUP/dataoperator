@@ -11,32 +11,36 @@
 成绩：<input id="score" type="text"><br>
 <input type="button" value="存入mysql" onclick="saveMysql()">
 <input type="button" value="存入redis" onclick="saveRedis()">
+<input type="button" value="发送rabbitmq信息" onclick="sendRabbitMqMsg()">
+<input type="button" value="发送rabbitmq信息ALL" onclick="sendRabbitMqMsg()">
 
 </body>
 </html>
 
 <script type="text/javascript">
     function saveRedis() {
-        $.ajax({
-            type:"post",
-            url:"/data/save",
-            data:{
-                "type": "redis",
-                "name":$("#name").val(),
-                "score":$("#score").val()
-            },
-            success:function (r) {
-                alert(r.msg);
-            }
-        })
+        f("redis")
     }
 
     function saveMysql() {
+        f("mysql")
+    }
+
+    function sendRabbitMqMsg() {
+        f("rabbitmq one")
+    }
+
+    function sendRabbitMqMsgALL() {
+        f("rabbitmq all")
+    }
+
+
+    function f(type) {
         $.ajax({
             type:"post",
             url:"/data/save",
             data:{
-                "type": "mysql",
+                "type": type,
                 "name":$("#name").val(),
                 "score":$("#score").val()
             },
