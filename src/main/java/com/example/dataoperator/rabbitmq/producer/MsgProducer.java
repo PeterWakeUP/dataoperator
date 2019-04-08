@@ -17,6 +17,7 @@ public class MsgProducer implements RabbitTemplate.ConfirmCallback {
 
     //由于rabbitTemplate的scope属性设置为ConfigurableBeanFactory.SCOPE_PROTOTYPE，所以不能自动注入
     private RabbitTemplate rabbitTemplate;
+
     /**
      * 构造方法注入rabbitTemplate
      */
@@ -31,6 +32,7 @@ public class MsgProducer implements RabbitTemplate.ConfirmCallback {
         //把消息放入ROUTINGKEY_A对应的队列当中去，对应的是队列A
         rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_A, RabbitConfig.ROUTINGKEY_A, content, correlationId);
     }
+
     /**
      * 回调
      */
