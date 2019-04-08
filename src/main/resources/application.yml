@@ -25,4 +25,10 @@ spring:
         max-active: 2000
         max-wait: 1000ms
 
+  rabbitmq:
+    host: 127.0.0.1
+    port: 15672
+    username: guest
+    password: guest
+
 
