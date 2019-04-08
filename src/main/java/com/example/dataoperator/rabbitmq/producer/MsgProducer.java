@@ -31,7 +31,9 @@ public class MsgProducer implements RabbitTemplate.ConfirmCallback {
     public void sendMsg(String content) {
         CorrelationData correlationId = new CorrelationData(UUID.randomUUID().toString());
         //把消息放入ROUTINGKEY_A对应的队列当中去，对应的是队列A
-        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_A, RabbitConfig.ROUTINGKEY_A, content, correlationId);
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_A, RabbitConfig.ROUTINGKEY_A, content+"A", correlationId);
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_B, RabbitConfig.ROUTINGKEY_B, content+"B", correlationId);
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_C, RabbitConfig.ROUTINGKEY_C, content+"C", correlationId);
     }
 
     public void sendAll(String content) {
