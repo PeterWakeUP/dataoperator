@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RabbitListener(queues = RabbitConfig.QUEUE_B)
-public class MsgReceiverC_one {
+public class MsgReceiverB {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RabbitHandler
     public void process(String content) {
-        logger.info("处理器one接收处理队列A当中的消息： " + content);
+        logger.info("接收处理队列b当中的消息： " + content);
     }
 }
 
