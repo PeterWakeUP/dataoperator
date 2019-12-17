@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+/**
+ * 实战中不需要；直接配置队列和交换机
+ */
 @Configuration
 public class RabbitConfig {
 

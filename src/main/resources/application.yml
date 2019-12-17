@@ -32,3 +32,8 @@ spring:
     password: guest
 
 
+zookeeper:
+  address: 127.0.0.1:2181
+  timeout: 4000
+
+
