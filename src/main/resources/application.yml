@@ -5,13 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/zz_my?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/zzz_test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: admin
-
-  mybatis:
-    config-locations: classpath*:mybatis-config.xml
-    mapper-locations: classpath*:mapper/*.xml
 
   redis:
     host: 127.0.0.1
@@ -35,5 +31,9 @@ spring:
 zookeeper:
   address: 127.0.0.1:2181
   timeout: 4000
+
+mybatis:
+  mapper-locations: "classpath:mapper/*.xml"
+  config-location: "classpath:mybatis-config.xml"
 
 

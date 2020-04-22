@@ -4,7 +4,7 @@
 <mapper namespace="com.example.dataoperator.dao.StudentDao">
 
     <insert id="save" parameterType="com.example.dataoperator.dto.StudentVo">
-        INSERT INTO `zz_my`.`student`(
+        INSERT INTO `student`(
         `name`,
         `score`
         )
