@@ -9,6 +9,14 @@ public class Student implements Serializable {
     private String name;
     private Integer score;
 
+    public Student() {
+    }
+
+    public Student(String name, Integer score) {
+        this.name = name;
+        this.score = score;
+    }
+
     public String getName() {
         return name;
     }

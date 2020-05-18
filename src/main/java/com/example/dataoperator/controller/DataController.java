@@ -46,7 +46,8 @@ public class DataController {
     @RequestMapping("save")
     public R save(StudentVo vo){
         if(vo.getType().equals("mysql")){
-            studentService.save(vo);
+            //studentService.save(vo);
+            studentService.saveBatchTransactionTests();
         }else if(vo.getType().equals("redis")){
             //redisReposity.save(vo);
             //saveByJedis(vo);
